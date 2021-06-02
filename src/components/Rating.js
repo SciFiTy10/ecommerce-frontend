@@ -6,6 +6,7 @@ function Rating({ value, text, color }) {
   while (i < 6) {
     stars.push(
       <i
+        key={i}
         style={{ color }}
         className={
           value >= i
