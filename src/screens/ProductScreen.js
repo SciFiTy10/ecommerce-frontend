@@ -16,7 +16,7 @@ import Message from "../components/Message";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../actions/productActions";
 
-function ProductScreen({ match }) {
+function ProductScreen({ match, history }) {
   const [qty, setQty] = useState(1);
 
   const dispatch = useDispatch();
@@ -26,6 +26,11 @@ function ProductScreen({ match }) {
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match]);
+
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
+
   return (
     <div>
       <Link to="/" className="btn btn-light my-3">
@@ -101,6 +106,7 @@ function ProductScreen({ match }) {
                 )}
                 <ListGroup.Item>
                   <Button
+                    onClick={addToCartHandler}
                     className="btn-block"
                     type="button"
                     disabled={product.countInStock === 0}
